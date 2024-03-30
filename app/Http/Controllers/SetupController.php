@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Models\Setup;
 
-class RepoController extends Controller
+class SetupController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $token = env('GITHUB_ACCESS_TOKEN');
-        $repos = Http::withToken($token, 'Bearer')->get('https://api.github.com/user/repos');
-
-        return view('welcome', ['repos' => $repos->json()]);
+        return view('startup.index');
     }
 
     /**
@@ -31,6 +28,15 @@ class RepoController extends Controller
      */
     public function store(Request $request)
     {
+        $token = $request->input('token');
+        $directoryPath = $request->input('directory_path');
+
+        Setup::create([
+            'token' => $token,
+            'directory_path' => $directoryPath,
+        ]);
+
+        return redirect('/repos');
     }
 
     /**
