@@ -10,6 +10,11 @@
 
 <body>
     <h1 class="text-2xl text-black">Repo Manager</h1>
+    @foreach ($repos as $repo)
+    <div class="bg-gray-100 p-4 my-4">
+        <h2>{{ $repo }}</h2>
+    </div>
+    @endforeach
 </body>
 
 </html>
