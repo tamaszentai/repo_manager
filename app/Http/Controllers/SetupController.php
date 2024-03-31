@@ -12,7 +12,7 @@ class SetupController extends Controller
      */
     public function index()
     {
-        return view('startup.index');
+        return view('setup.index');
     }
 
     /**
@@ -28,8 +28,14 @@ class SetupController extends Controller
      */
     public function store(Request $request)
     {
-        $token = $request->input('token');
-        $directoryPath = $request->input('directory_path');
+
+        $validated = $request->validate([
+            'token' => 'required',
+            'directory_path' => 'required',
+        ]);
+
+        $token = $validated['token'];
+        $directoryPath = $validated['directory_path'];
 
         Setup::create([
             'token' => $token,

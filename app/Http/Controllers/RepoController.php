@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Setup;
 
 class RepoController extends Controller
 {
@@ -12,10 +13,17 @@ class RepoController extends Controller
      */
     public function index()
     {
-        $token = env('GITHUB_ACCESS_TOKEN');
+        $setup = Setup::get()->first()->toArray();
+        $token = $setup['token'];
         $repos = Http::withToken($token, 'Bearer')->get('https://api.github.com/user/repos');
+        if ($repos->status() === 401) {
 
-        return view('welcome', ['repos' => $repos->json()]);
+            $errorMessage = 'Access denied. Check the GitHub API token.';
+
+            return view('repos.index', ['error' => $errorMessage]);
+        }
+
+        return view('repos.index', ['repos' => $repos->json()]);
     }
 
     /**
