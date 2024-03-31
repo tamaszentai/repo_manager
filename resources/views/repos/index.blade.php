@@ -24,7 +24,16 @@
     @foreach ($repos as $repo)
     <div class="bg-gray-100 p-4 my-4">
         <h2 class="text-xl font-bold">{{ $repo['name'] }}</h2>
-        <p class="text-gray-600">{{ $repo['description'] }}</p>
+        <p class="text-gray-600">Description: {{ $repo['description'] ? $repo['description'] : 'N/A' }}</p>
+        <p class="text-gray-600">Language: {{ $repo['language'] }}</p>
+        check library exists
+        <form action="{{ route('library') }}" method="POST">
+            @csrf
+            <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
+            <input type="hidden" name="clone_url" value="{{ $repo['ssh_url'] }}">
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Clone Library</button>
+        </form>
+
     </div>
     @endforeach
     @endif

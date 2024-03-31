@@ -71,4 +71,11 @@ class RepoController extends Controller
     {
         //
     }
+
+    /**
+     * Clone the specified repository if doesn't exist in directory.
+     */
+    public function clone(string $id)
+    {
+    }
 }

@@ -11,7 +11,7 @@
 <body>
     <div class="bg-slate-400 min-h-screen flex items-center justify-center">
         <div class="bg-white rounded-lg shadow-md px-8 py-6 max-w-md">
-            <h1 class="flex justify-center mb-10 text-2xl font-bold">Repo Manager EDIT</h1>
+            <h1 class="flex justify-center mb-10 text-2xl font-bold">Edit settings</h1>
             @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
