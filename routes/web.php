@@ -10,6 +10,6 @@ Route::get('/', function () {
     return redirect('/repos');
 });
 
-Route::resource('setup', SetupController::class)->only(['index', 'store', 'edit'])->middleware(EnsureDontCompleteSetupTwice::class);
+Route::resource('setup', SetupController::class)->only(['index', 'store', 'edit', 'update'])->middleware(EnsureDontCompleteSetupTwice::class);
 
 Route::resource('repos', RepoController::class)->only(['index'])->middleware(EnsureSetupHasDone::class);

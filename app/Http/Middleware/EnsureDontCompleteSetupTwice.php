@@ -19,7 +19,7 @@ class EnsureDontCompleteSetupTwice
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (Setup::count() > 0 && !$this->isEditingRoute($request)) {
+        if (Setup::count() > 0 && !$this->isEditingRoute($request) && !$this->isUpdatingRoute($request)) {
             return redirect('/repos');
         }
 
@@ -32,5 +32,13 @@ class EnsureDontCompleteSetupTwice
 
         return ($route->getName() === 'setup.edit') ||
             (strpos($route->uri(), 'setup/1/edit') !== false);
+    }
+
+    private function isUpdatingRoute(Request $request): bool
+    {
+        $route = $request->route();
+
+        return ($route->getName() === 'setup.update') ||
+            (strpos($route->uri(), 'setup/1/update') !== false);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Setup;
+use Hamcrest\Core\Set;
+use Illuminate\Support\Facades\Log;
 
 class SetupController extends Controller
 {
@@ -66,7 +68,20 @@ class SetupController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'token' => 'required',
+            'directory_path' => 'required',
+        ]);
+
+        $token = $validated['token'];
+        $directoryPath = $validated['directory_path'];
+
+        Setup::find($id)->update([
+            'token' => $token,
+            'directory_path' => $directoryPath,
+        ]);
+
+        return redirect('/repos');
     }
 
     /**
