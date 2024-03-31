@@ -10,6 +10,12 @@
 
 <body>
     <h1 class="text-2xl text-black">Repo Manager</h1>
+    <form action="{{ route('repos.index') }}" method="GET">
+        <input type="text" name="search" placeholder="Search for a repository" class="border border-gray-300 p-2 rounded-lg">
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Search</button>
+    </form>
+    <a href="{{ route('setup.edit', $setup) }}" class="text-blue-500">Edit setup</a>
+
     @if (isset($error))
     <div class="bg-red-100 p-4 my-4">
         {{$error}}

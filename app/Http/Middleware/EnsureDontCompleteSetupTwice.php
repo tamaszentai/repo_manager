@@ -12,13 +12,25 @@ class EnsureDontCompleteSetupTwice
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+     *
+     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Setup::count() > 0) {
+
+        if (Setup::count() > 0 && !$this->isEditingRoute($request)) {
             return redirect('/repos');
         }
+
         return $next($request);
+    }
+
+    private function isEditingRoute(Request $request): bool
+    {
+        $route = $request->route();
+
+        return ($route->getName() === 'setup.edit') ||
+            (strpos($route->uri(), 'setup/1/edit') !== false);
     }
 }

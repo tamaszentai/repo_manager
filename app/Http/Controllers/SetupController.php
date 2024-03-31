@@ -58,7 +58,7 @@ class SetupController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('setup.edit', ['setup' => Setup::find($id)]);
     }
 
     /**
