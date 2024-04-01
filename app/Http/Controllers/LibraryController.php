@@ -27,17 +27,30 @@ class LibraryController extends Controller
 
     public function deleteRepo(Request $request)
     {
-        $libraryName = $request->input('library_name');
+        $libraryName = $request->input('repo_name');
         $directoryPath = Setup::get()->first()->toArray()['directory_path'];
-        $cloneUrl = $request->input('clone_url');
 
 
-        if (!file_exists($directoryPath . $libraryName)) {
-            exec("git clone {$cloneUrl} {$directoryPath}{$libraryName}");
-        } else {
 
-            Log::info('Directory already exists');
-        }
+        delete_directory($directoryPath . $libraryName);
+
         return redirect()->route('repos.index');
     }
+}
+
+function delete_directory($dir)
+{
+    $files = scandir($dir);
+
+    foreach ($files as $file) {
+        if ($file != "." && $file != "..") {
+            if (is_dir($dir . "/" . $file)) {
+                delete_directory($dir . "/" . $file);
+            } else {
+                unlink($dir . "/" . $file);
+            }
+        }
+    }
+
+    rmdir($dir);
 }

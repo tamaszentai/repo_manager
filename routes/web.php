@@ -15,4 +15,6 @@ Route::resource('setup', SetupController::class)->only(['index', 'store', 'edit'
 
 Route::resource('repos', RepoController::class)->only(['index'])->middleware(EnsureSetupHasDone::class);
 
-Route::post('library', [LibraryController::class, 'cloneRepo'])->name('cloneRepo');
+Route::post('library/clone', [LibraryController::class, 'cloneRepo'])->name('cloneRepo');
+
+Route::post('library/delete', [LibraryController::class, 'deleteRepo'])->name('deleteRepo');
