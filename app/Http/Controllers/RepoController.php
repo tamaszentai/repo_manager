@@ -20,10 +20,10 @@ class RepoController extends Controller
 
             $errorMessage = 'Access denied. Check the GitHub API token.';
 
-            return view('repos.index', ['error' => $errorMessage, 'setup' => $setup['id']]);
+            return view('repos.index', ['error' => $errorMessage, 'setup' => $setup]);
         }
 
-        return view('repos.index', ['repos' => $repos->json(), 'setup' => $setup['id']]);
+        return view('repos.index', ['repos' => $repos->json(), 'setup' => $setup]);
     }
 
     /**
