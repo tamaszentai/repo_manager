@@ -54,13 +54,22 @@
 
                     <form action="{{ route('deleteRepo') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="repo_name" value="{{ $repo['name'] }}">
+                        <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
                         @if ($libraryExists)
                         <button type="submit" class="delete-button bg-red-500 text-white p-2 rounded-lg">Delete Repo From Disk</button>
                         @else
                         <button type="button" class="delete-button bg-gray-300 text-white p-2 rounded-lg disabled">Repo doesn't exist on disk</button>
                         @endif
                     </form>
+
+                    <form action="{{ route('installDependencies') }}" method="POST" class="ml-2">
+                        @csrf
+                        <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
+                        <input type="hidden" name="language" value="{{ $repo['language'] }}">
+
+                        <button type="submit" class="install-button bg-green-500 text-white p-2 rounded-lg">Install Dependencies</button>
+                    </form>
+
                 </div>
             </article> @endforeach
         </section>

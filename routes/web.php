@@ -18,3 +18,5 @@ Route::resource('repos', RepoController::class)->only(['index'])->middleware(Ens
 Route::post('library/clone', [LibraryController::class, 'cloneRepo'])->name('cloneRepo');
 
 Route::post('library/delete', [LibraryController::class, 'deleteRepo'])->name('deleteRepo');
+
+Route::post('library/install', [LibraryController::class, 'installDependencies'])->name('installDependencies');
