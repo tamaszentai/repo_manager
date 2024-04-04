@@ -68,6 +68,36 @@ class LibraryController extends Controller
         }
         return redirect()->route('repos.index');
     }
+
+    public function removeDependencies(Request $request)
+    {
+        $validated = $request->validate([
+            'library_name' => 'required',
+            'language' => 'required',
+        ]);
+
+        $libraryName = $validated['library_name'];
+        $language = $validated['language'];
+        $directoryPath = Setup::get()->first()->toArray()['directory_path'];
+
+        switch (strtolower($language)) {
+            case 'typescript':
+                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                break;
+            case 'javascript':
+                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                break;
+            case 'node':
+                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                break;
+            case 'vue':
+                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                break;
+            default:
+                break;
+        }
+        return redirect()->route('repos.index');
+    }
 }
 
 function delete_directory($dir)

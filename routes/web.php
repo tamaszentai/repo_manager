@@ -20,3 +20,5 @@ Route::post('library/clone', [LibraryController::class, 'cloneRepo'])->name('clo
 Route::post('library/delete', [LibraryController::class, 'deleteRepo'])->name('deleteRepo');
 
 Route::post('library/install', [LibraryController::class, 'installDependencies'])->name('installDependencies');
+
+Route::post('library/remove', [LibraryController::class, 'removeDependencies'])->name('removeDependencies');

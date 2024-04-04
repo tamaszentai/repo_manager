@@ -70,6 +70,13 @@
                         <button type="submit" class="install-button bg-green-500 text-white p-2 rounded-lg">Install Dependencies</button>
                     </form>
 
+                    <form action="{{ route('removeDependencies') }}" method="POST" class="ml-2">
+                        @csrf
+                        <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
+                        <input type="hidden" name="language" value="{{ $repo['language'] }}">
+
+                        <button type="submit" class="remove-button bg-red-500 text-white p-2 rounded-lg">Remove Dependencies</button>
+                    </form>
                 </div>
             </article> @endforeach
         </section>
