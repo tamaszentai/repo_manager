@@ -13,6 +13,7 @@ Route::get('/', function () {
 
 Route::resource('setup', SetupController::class)->only(['index', 'store', 'edit', 'update'])->middleware(EnsureDontCompleteSetupTwice::class);
 
+Route::post('repos/next', [RepoController::class, 'next'])->name('repos.next')->middleware(EnsureSetupHasDone::class);
 Route::resource('repos', RepoController::class)->only(['index'])->middleware(EnsureSetupHasDone::class);
 
 Route::post('library/clone', [LibraryController::class, 'cloneRepo'])->name('cloneRepo');

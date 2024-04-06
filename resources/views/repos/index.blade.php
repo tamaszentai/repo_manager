@@ -14,6 +14,14 @@
         <a href="{{ route('setup.edit', $setup['id']) }}" class="text-blue-500 hover:underline mx-3">Edit setup</a>
     </header>
 
+    <nav>
+        <form action="{{ route('repos.next') }}" method="POST">
+            <input type="hidden" name="url" value="{{ $links['next'] }}">
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Next</button>
+            {{ $links['next'] }}
+        </form>
+    </nav>
+
     <main class="container mx-auto px-4 py-8">
         <section class="search-form mb-4">
             <form action="{{ route('repos.index') }}" method="GET">

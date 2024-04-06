@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Console\Commands\CloneRepository;
 use App\Models\Setup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -98,26 +97,4 @@ class LibraryController extends Controller
         }
         return redirect()->route('repos.index');
     }
-}
-
-function delete_directory($dir)
-{
-    $files = scandir($dir);
-
-    foreach ($files as $file) {
-        if ($file != "." && $file != "..") {
-            $filePath = $dir . "/" . $file;
-            if (is_dir($filePath)) {
-                delete_directory($filePath);
-            } else {
-                $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-                if (in_array($extension, ["git", "idx", "pack"])) {
-                    chmod($filePath, 0644);
-                }
-                unlink($filePath);
-            }
-        }
-    }
-
-    rmdir($dir);
 }
