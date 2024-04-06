@@ -38,6 +38,7 @@
                 <?php
                 $libraryPath = $setup['directory_path'] . $repo['name'];
                 $libraryExists = file_exists($libraryPath);
+                $nodeModulesExists = file_exists($libraryPath . '/node_modules');
                 ?>
 
                 <div class="repo-actions flex mt-4">
@@ -57,8 +58,6 @@
                         <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
                         @if ($libraryExists)
                         <button type="submit" class="delete-button bg-red-500 text-white p-2 rounded-lg">Delete Repo From Disk</button>
-                        @else
-                        <button type="button" class="delete-button bg-gray-300 text-white p-2 rounded-lg disabled">Repo doesn't exist on disk</button>
                         @endif
                     </form>
 
@@ -67,7 +66,9 @@
                         <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
                         <input type="hidden" name="language" value="{{ $repo['language'] }}">
 
-                        <button type="submit" class="install-button bg-green-500 text-white p-2 rounded-lg">Install Dependencies</button>
+                        @if ($libraryExists && $repo['language'])
+                        <button type="submit" class="clone-button bg-green-500 text-white p-2 rounded-lg">Install Dependencies</button>
+                        @endif
                     </form>
 
                     <form action="{{ route('removeDependencies') }}" method="POST" class="ml-2">
@@ -75,7 +76,11 @@
                         <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
                         <input type="hidden" name="language" value="{{ $repo['language'] }}">
 
+                        @if ($libraryExists && $repo['language'] && $nodeModulesExists)
                         <button type="submit" class="remove-button bg-red-500 text-white p-2 rounded-lg">Remove Dependencies</button>
+                        @elseif ($libraryExists && $repo['language'] && !$nodeModulesExists)
+                        <button type="button" class="remove-button bg-gray-300 text-white p-2 rounded-lg disabled">Dependencies not installed</button>
+                        @endif
                     </form>
                 </div>
             </article> @endforeach

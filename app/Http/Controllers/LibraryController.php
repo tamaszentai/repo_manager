@@ -106,10 +106,15 @@ function delete_directory($dir)
 
     foreach ($files as $file) {
         if ($file != "." && $file != "..") {
-            if (is_dir($dir . "/" . $file)) {
-                delete_directory($dir . "/" . $file);
+            $filePath = $dir . "/" . $file;
+            if (is_dir($filePath)) {
+                delete_directory($filePath);
             } else {
-                unlink($dir . "/" . $file);
+                $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+                if (in_array($extension, ["git", "idx", "pack"])) {
+                    chmod($filePath, 0644);
+                }
+                unlink($filePath);
             }
         }
     }
