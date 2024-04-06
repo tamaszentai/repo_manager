@@ -29,6 +29,18 @@ class RepoController extends Controller
         return view('repos.index', ['repos' => $response->json(), 'links' => $links, 'setup' => $setup]);
     }
 
+    public function previous(Request $request)
+    {
+        $setup = Setup::get()->first()->toArray();
+        $token = $setup['token'];
+        $url = $request->url;
+        $url = explode('?', $url);
+        $response = Http::withToken($token, 'Bearer')->get($request->url);
+        $links = Helper::getGithubReposUrls($response);
+
+        return view('repos.index', ['repos' => $response->json(), 'links' => $links, 'setup' => $setup]);
+    }
+
     public function next(Request $request)
     {
         $setup = Setup::get()->first()->toArray();

@@ -16,9 +16,18 @@
 
     <nav>
         <form action="{{ route('repos.next') }}" method="POST">
+            @csrf
+            @php
+            $isLastPage = false;
+            if ($links['next'] === $links['last']) {
+            $isLastPage = true;
+            }
+            @endphp
             <input type="hidden" name="url" value="{{ $links['next'] }}">
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Next</button>
-            {{ $links['next'] }}
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg disabled:bg-gray-400" @disabled($isLastPage)>Next</button><br>
+            {{ var_dump($isLastPage)}} <br>
+            {{ $links['next'] }} <br>
+            {{ $links['last'] }} <br>
         </form>
     </nav>
 

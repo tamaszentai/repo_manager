@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Setup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Helpers\Helper;
 
 class LibraryController extends Controller
 {
@@ -38,7 +39,7 @@ class LibraryController extends Controller
         $libraryName = $validated['library_name'];
         $directoryPath = Setup::get()->first()->toArray()['directory_path'];
 
-        delete_directory($directoryPath . $libraryName);
+        Helper::delete_directory($directoryPath . $libraryName);
 
         return redirect()->route('repos.index');
     }
