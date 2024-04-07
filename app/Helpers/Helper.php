@@ -28,7 +28,6 @@ class Helper
     }
     public static function getGithubReposUrls($response)
     {
-        // <https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=5>; rel="last"
 
         $links = $response->header('Link');
         $links = explode(',', $links);

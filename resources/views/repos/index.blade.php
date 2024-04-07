@@ -71,8 +71,6 @@
                         <input type="hidden" name="clone_url" value="{{ $repo['ssh_url'] }}">
                         @if (!$libraryExists)
                         <button type="submit" class="clone-button bg-blue-500 text-white p-2 rounded-lg">Clone Repo</button>
-                        @else
-                        <button type="button" class="clone-button bg-gray-300 text-white p-2 rounded-lg disabled">Repo already exists</button>
                         @endif
                     </form>
 
@@ -89,7 +87,7 @@
                         <input type="hidden" name="library_name" value="{{ $repo['name'] }}">
                         <input type="hidden" name="language" value="{{ $repo['language'] }}">
 
-                        @if ($libraryExists && $repo['language'])
+                        @if ($libraryExists && $repo['language'] && !$nodeModulesExists)
                         <button type="submit" class="clone-button bg-green-500 text-white p-2 rounded-lg">Install Dependencies</button>
                         @endif
                     </form>
@@ -101,8 +99,7 @@
 
                         @if ($libraryExists && $repo['language'] && $nodeModulesExists)
                         <button type="submit" class="remove-button bg-red-500 text-white p-2 rounded-lg">Remove Dependencies</button>
-                        @elseif ($libraryExists && $repo['language'] && !$nodeModulesExists)
-                        <button type="button" class="remove-button bg-gray-300 text-white p-2 rounded-lg disabled">Dependencies not installed</button>
+
                         @endif
                     </form>
                 </div>

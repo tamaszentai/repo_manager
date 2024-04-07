@@ -82,16 +82,16 @@ class LibraryController extends Controller
 
         switch (strtolower($language)) {
             case 'typescript':
-                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                Helper::delete_directory($directoryPath . $libraryName . '/node_modules');
                 break;
             case 'javascript':
-                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                Helper::delete_directory($directoryPath . $libraryName . '/node_modules');
                 break;
             case 'node':
-                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                Helper::delete_directory($directoryPath . $libraryName . '/node_modules');
                 break;
             case 'vue':
-                exec("cd {$directoryPath}{$libraryName} && rm -rf node_modules");
+                Helper::delete_directory($directoryPath . $libraryName . '/node_modules');
                 break;
             default:
                 break;
