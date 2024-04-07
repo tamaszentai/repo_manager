@@ -9,12 +9,21 @@
 </head>
 
 <body>
+
     <header class="flex justify-between items-center py-4 bg-gray-800 text-white">
         <h1 class="text-xl font-bold mx-3">Repo Manager</h1>
         <a href="{{ route('setup.edit', $setup['id']) }}" class="text-blue-500 hover:underline mx-3">Edit setup</a>
     </header>
 
     <nav>
+        <form action="{{ route('repos.previous') }}" method="POST">
+            @csrf
+
+            <input type="hidden" name="url" value="{{ $links['next'] }}">
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg disabled:bg-gray-400" @disabled($isFirstPage)>Previous</button>
+        </form>
+
+
         <form action="{{ route('repos.next') }}" method="POST">
             @csrf
             @php
@@ -24,10 +33,7 @@
             }
             @endphp
             <input type="hidden" name="url" value="{{ $links['next'] }}">
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg disabled:bg-gray-400" @disabled($isLastPage)>Next</button><br>
-            {{ var_dump($isLastPage)}} <br>
-            {{ $links['next'] }} <br>
-            {{ $links['last'] }} <br>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg disabled:bg-gray-400" @disabled($isLastPage)>Next</button>
         </form>
     </nav>
 
