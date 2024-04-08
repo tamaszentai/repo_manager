@@ -30,6 +30,24 @@ class RepoController extends Controller
         return view('repos.index', ['repos' => $response->json(), 'links' => $links, 'setup' => $setup, 'isFirstPage' => $isFirstPage]);
     }
 
+    // Github API doesn't support searching for repositories for a user. In Repo manager 2 I will implement this feature client side search using Vue.js.
+    // public function search(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'search' => 'required'
+    //     ]);
+    //     $setup = Setup::get()->first()->toArray();
+    //     $token = $setup['token'];
+    //     $isFirstPage = true;
+    //     $search = $validated['search'];
+    //     $response = Http::withToken($token, 'Bearer')->get('https://api.github.com/user/repos?q=' . $search);
+    //     dd($response->json());
+    //     $links = Helper::getGithubReposUrls($response);
+
+
+    //     return view('repos.index', ['repos' => $response->json(), 'links' => $links, 'setup' => $setup, 'isFirstPage' => $isFirstPage]);
+    // }
+
     public function previous(Request $request)
     {
         $setup = Setup::get()->first()->toArray();
